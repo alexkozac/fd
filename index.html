@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Multi-Kool</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <button id="infoButton">More Info</button>
+    <div id="infoText">
+      Questa applicazione web genera frasi casuali, frasi che sono state sentite
+      e poi trascritte durante una passeggiata in centro di Milano. Poi queste
+      frasi sono tradotte quando si clicca sul pulsante e quindi vedrai apparire
+      frasi in lingue diverse, ognuna con il suo tocco unico, perchè dette da
+      persone diverse. Puoi anche attivare la lettura vocale per ascoltare le
+      frasi.
+    </div>
+    <div id="container">
+      <h1>Multi-Kool</h1>
+      <div id="output"></div>
+      <button onclick="generateRandomPhrases()">Generate Phrases</button>
+      <button onclick="toggleTextToSpeech()">Toggle Text-to-Speech</button>
+    </div>
+    <script src="script.js"></script>
+
+    <h2>Made By</h2>
+    <section id="team">
+      <div class="team-member">
+        <img src="img/613.gif" alt="Team Member 1" />
+        <div class="tx">
+          <h2>Alessandro</h2>
+          <h3>Team Leader</h3>
+          <p>Il tè alla pesca è migliore di quello al limone</p>
+        </div>
+      </div>
+      <div class="team-member">
+        <img
+          src="img/OK6W_koKDTOqqqLDbIoPAhighLKufYVn_o65TRVNr9c.gif"
+          alt="Team Member 2"
+        />
+        <div class="tx">
+          <h2>Alberto</h2>
+          <h3>Senior Developer</h3>
+          <p>Un siciliano alla ricerca del arancino perduto</p>
+        </div>
+      </div>
+      <div class="team-member">
+        <img src="img/giphy.gif" alt="Team Member 3" />
+        <div class="tx">
+          <h2>Bak</h2>
+          <h3>Mid Developer</h3>
+          <p>Il personaggio principale è Zelda, non Link.....</p>
+        </div>
+      </div>
+      <div class="team-member">
+        <img
+          src="img/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f776174747061642d6d656469612d736572766963652f53746f7279496d6167652f4d554b67673437333777415033773d3d2d3537363932313333372e3135333031376161373937333838616337363435.gif"
+          alt="Team Member 4"
+        />
+        <div class="tx">
+          <h2>Davide</h2>
+          <h3>Mid Developer</h3>
+          <p>In realtà amo Illustrator ed il meta progetto....</p>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
