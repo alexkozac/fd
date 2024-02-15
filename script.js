@@ -160,50 +160,101 @@ const languages = {
     
   };
   
-  function generateRandomPhrases() {
-    const outputDiv = document.getElementById('output');
-    outputDiv.innerHTML = '';
-  
-    for (let i = 0; i < 5; i++) {
-      const phrase = [];
-      const languagesList = Object.keys(languages);
-      for (let j = 0; j < languagesList.length; j++) {
-        const langCode = getRandomElement(languagesList);
-        const randomWordIndex = Math.floor(Math.random() * languages[langCode].length);
-        const word = languages[langCode][randomWordIndex];
-        phrase.push(word);
-        speak(word, langCode);
-      }
-  
-      const paragraph = document.createElement('p');
-      paragraph.textContent = phrase.join(' ');
-      outputDiv.appendChild(paragraph);
+  document.addEventListener('DOMContentLoaded', function() {
+    const generateButton = document.getElementById('generateButton');
+    const toggleSpeechButton = document.getElementById('toggleSpeech');
+    const phrasesContainer = document.getElementById('phrases');
+    const body = document.body;
+    const modal = document.getElementById('modal');
+    const modalText = document.getElementById('modalText');
+    const closeButton = document.querySelector('.close');
+
+    generateButton.addEventListener('click', function() {
+        showLoadingSpinner();
+        setTimeout(function() {
+            generateRandomPhrases();
+            hideLoadingSpinner();
+            scrollToPhrases();
+        }, 1500); // Simulating a delay for loading
+    });
+
+    toggleSpeechButton.addEventListener('click', toggleTextToSpeech);
+
+    function generateRandomPhrases() {
+        phrasesContainer.innerHTML = '';
+
+        for (let i = 0; i < 5; i++) {
+            const phrase = [];
+            const languagesList = Object.keys(languages);
+            for (let j = 0; j < languagesList.length; j++) {
+                const langCode = getRandomElement(languagesList);
+                const randomWordIndex = Math.floor(Math.random() * languages[langCode].length);
+                const word = languages[langCode][randomWordIndex];
+                phrase.push(word);
+                if (isTextToSpeechEnabled) {
+                    speak(word, langCode);
+                }
+            }
+
+            const paragraph = document.createElement('p');
+            paragraph.textContent = phrase.join(' ');
+            paragraph.addEventListener('click', function() {
+                showModal(phrase.join(' '));
+            });
+            phrasesContainer.appendChild(paragraph);
+        }
     }
-  }
-  
-  function getRandomElement(array) {
-    const randomIndex = Math.floor(Math.random() * array.length);
-    return array[randomIndex];
-  }
-  
-  function speak(text, langCode) {
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = langCode;
-    speechSynthesis.speak(utterance);
-  }
-  
-  let isTextToSpeechEnabled = true;
-  
-  function toggleTextToSpeech() {
-    isTextToSpeechEnabled = !isTextToSpeechEnabled;
-  }
-  
-  function enableTextToSpeech() {
-    isTextToSpeechEnabled = true;
-  }
-  
-  function disableTextToSpeech() {
-    isTextToSpeechEnabled = false;
-  }
+
+    function getRandomElement(array) {
+        const randomIndex = Math.floor(Math.random() * array.length);
+        return array[randomIndex];
+    }
+
+    let isTextToSpeechEnabled = true;
+
+    function toggleTextToSpeech() {
+        isTextToSpeechEnabled = !isTextToSpeechEnabled;
+    }
+
+    function speak(text, langCode) {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = langCode;
+        speechSynthesis.speak(utterance);
+    }
+
+    function showLoadingSpinner() {
+        const spinner = document.createElement('div');
+        spinner.classList.add('spinner');
+        body.appendChild(spinner);
+    }
+
+    function hideLoadingSpinner() {
+        const spinner = document.querySelector('.spinner');
+        if (spinner) {
+            spinner.remove();
+        }
+    }
+
+    function scrollToPhrases() {
+        phrasesContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showModal(text) {
+        modalText.textContent = text;
+        modal.style.display = 'block';
+    }
+
+    closeButton.addEventListener('click', function() {
+        modal.style.display = 'none';
+    });
+
+    window.addEventListener('click', function(event) {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+});
+
+
   
   
